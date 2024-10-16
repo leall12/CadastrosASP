@@ -1,0 +1,52 @@
+﻿@model IEnumerable<AppQuinto.Models.Cliente>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Lista de Clientes</h1>
+
+<div class="table-responsive">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th scope="col"> @Html.DisplayNameFor(model => model.idCli) </th>
+                <th scope="col"> @Html.DisplayNameFor(model => model.nome) </th>
+                <th scope="col"> @Html.DisplayNameFor(model => model.endereco)  </th>
+                <th scope="col"> @Html.DisplayNameFor(model => model.cpf)  </th>
+                <th scope="col"> @Html.DisplayNameFor(model => model.telefone)  </th>
+                <th scope="col"> @Html.DisplayNameFor(model => model.data_nascimento) </th>
+                <th scope="col">Ação</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Cliente cliente in Model)
+            {
+                <tr>
+                    <td>@cliente.idCli</td>
+                    <td>@cliente.nome</td>
+                    <td>@cliente.endereco</td>
+                    <td>@cliente.cpf</td>
+                    <td>@cliente.telefone</td>
+                    <td>@cliente.data_nascimento.ToString("dd/MM/yyyy")</td>
+                    <td>
+                        <button type="button" class="btn btn-warning botaoatualiza">
+                            @Html.ActionLink("Editar", "AtualizarCliente", new { id = cliente.idCli })
+                        </button>
+
+                        <button type="button" class="btn btn-secondary botaodetalhes">
+                            @Html.ActionLink("Detalhes", "DetalhesCliente", new { id = cliente.idCli })
+                        </button>
+
+                        <button type="button" class="btn btn-danger botaoexcluir">
+                            @Html.ActionLink("Excluir", "ExcluirCliente", new { id = cliente.idCli },
+                                     new { onclick = "return confirm('Deseja realmente desativar?');" })
+                        </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<p><a class="btn btn-primary" asp-action="CadastrarCliente" asp-controller="Cliente">Cadastrar</a></p>
